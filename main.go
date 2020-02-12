@@ -64,7 +64,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 						internalServerError(w, r)
 						return
 					}
-					// fmt.Println(ex.Out)
 					t.Execute(w, ex)
 				}
 			}
