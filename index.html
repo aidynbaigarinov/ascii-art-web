@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>ascii-art-web | iAA</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <article>
+    <article class="main">
+        <h1>ascii art web</h1>
+        <img src="/assets/images/cat.png" alt="cat" width="100">
         <form action="/" method="post">
             <select name="font">
                 <option value="standard">standard</option>
                 <option value="shadow">shadow</option>
                 <option value="thinkertoy">thinkertoy</option>
             </select>
-            <input type="text" name="input" id="input" placeholder="type something">
+            <textarea name="input" id="input" cols="30" rows="10" placeholder="type something">{{.In}}</textarea>
+            <input type="text" name="input" id="input" placeholder="type something" value="{{.In}}">
             <input type="submit" value="magic">
         </form>
         <section>
-            <pre id="output"></pre>
+            <pre class="output">{{.Out}}</pre>
         </section>
     </article>
 </body>

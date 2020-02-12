@@ -2,6 +2,7 @@ package ascii
 
 import (
 	"io/ioutil"
+	"net/http"
 	"strings"
 )
 
@@ -32,16 +33,19 @@ func CreateOutput(output, file []byte, word string, m int) []byte {
 	return CreateOutput(output, file, word, m+1)
 }
 
-func AsciiOutput(a *Ascii) []byte {
+func AsciiOutput(input, font string) (string, int) {
 	var (
 		wordsArr []string
 		output   []byte
 		index    int
 	)
-	file, _ := ioutil.ReadFile("assets/banners" + a.Font + ".txt")
-	wordsArr = strings.Split(a.Input, "\\n")
+	file, err := ioutil.ReadFile("./assets/banners/" + font + ".txt")
+	if err != nil {
+		return "", http.StatusInternalServerError
+	}
+	wordsArr = strings.Split(input, "\\n")
 	for _, word := range wordsArr {
 		output = CreateOutput(output, file, word, index)
 	}
-	return output
+	return string(output), http.StatusOK
 }
