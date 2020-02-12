@@ -13,13 +13,6 @@ type ExecOutput struct {
 	Out string
 }
 
-func ValidLength(s string) bool {
-	if len(s) == 0 {
-		return false
-	}
-	return true
-}
-
 func ValidAscii(s string) bool {
 	for _, i := range []byte(s) {
 		if i > 127 {
@@ -42,11 +35,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
 		switch r.Method {
 		case "GET":
-			t, _ := template.ParseFiles("index.html")
-			err := t.Execute(w, nil)
+			t, err := template.ParseFiles("index.html")
 			if err != nil {
-				log.Fatal(err)
+				internalServerError(w, r)
 			}
+			t.Execute(w, nil)
 		case "POST":
 			r.ParseForm()
 			if !ValidAscii(r.Form.Get("input")) {
@@ -71,10 +64,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 						internalServerError(w, r)
 						return
 					}
-					err = t.Execute(w, ex)
-					if err != nil {
-						log.Fatal(err)
-					}
+					// fmt.Println(ex.Out)
+					t.Execute(w, ex)
 				}
 			}
 		}
@@ -85,10 +76,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			internalServerError(w, r)
 			return
 		}
-		err = t.Execute(w, nil)
-		if err != nil {
-			log.Fatal(err)
-		}
+		t.Execute(w, nil)
 	}
 }
 

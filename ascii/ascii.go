@@ -20,7 +20,10 @@ func CreateOutput(output, file []byte, word string, m int) []byte {
 		numOfNl := 0
 		a := int(word[j]-32)*9 + 2 + m
 		for i, l := 0, len(file); i < l; i++ {
-			if file[i] == '\n' {
+			if file[i] == 13 {
+				continue
+			}
+			if file[i] == 10 {
 				numOfNl++
 			} else if numOfNl == a-1 {
 				output = append(output, file[i])
@@ -43,7 +46,7 @@ func AsciiOutput(input, font string) (string, int) {
 	if err != nil {
 		return "", http.StatusInternalServerError
 	}
-	wordsArr = strings.Split(input, "\\n")
+	wordsArr = strings.Split(input, "\n")
 	for _, word := range wordsArr {
 		output = CreateOutput(output, file, word, index)
 	}
