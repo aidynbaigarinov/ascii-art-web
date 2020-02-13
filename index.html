@@ -5,25 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ascii-art-web | iAA</title>
+    <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="shortcut icon" href="#">
 </head>
 <body>
-    <article class="main">
-        <h1>ascii art web</h1>
-        <img src="/assets/images/cat.png" alt="cat" width="100">
-        <form action="/" method="post">
-            <select name="font">
-                <option value="standard">standard</option>
-                <option value="shadow">shadow</option>
-                <option value="thinkertoy">thinkertoy</option>
-            </select>
-            <textarea name="input" id="input" cols="30" rows="10" placeholder="type something">{{.In}}</textarea>
-            <input type="text" name="input" id="input" placeholder="type something" value="{{.In}}">
-            <input type="submit" value="magic">
-        </form>
-        <section>
-            <pre class="output">{{.Out}}</pre>
-        </section>
-    </article>
+    <main class="main">
+        <header>
+            <img src="/assets/images/logo.png" alt="ascii-art-web logo" width="200">
+            <h1>ascii art web</h1>
+        </header>
+
+        <article class="form-output">
+            <form class="form" action="/" method="post">
+                <select name="font">
+                    <option value="standard">standard</option>
+                    <option value="shadow">shadow</option>
+                    <option value="thinkertoy">thinkertoy</option>
+                </select>
+                <input class="cat-image" type="image" src="/assets/images/cat.png" alt="cat" width="50">
+                <textarea name="input" cols="40" rows="5" placeholder="type something" required>{{.In}}</textarea>
+            </form>
+
+            <section class="out">
+                <pre class="output">{{.Out}}</pre>
+            </section>
+        </article>
+
+        <footer>
+            <p>&copy; 
+                <a href="https://github.com/iNaz07" target="blank"> iNaz07</a>
+                <a href="https://github.com/Abdubek" target="blank">Abdubek</a>
+                <a href="https://github.com/aidynbaigarinov" target="blank">Aidyn</a> with &hearts; 2020
+            </p>
+        </footer>
+    </main>
 </body>
 </html>

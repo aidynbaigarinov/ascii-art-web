@@ -5,19 +5,12 @@ import (
 	"log"
 	"net/http"
 
-	"./ascii"
+	ascii "./app"
 )
 
 type ExecOutput struct {
 	In  string
 	Out string
-}
-
-func ValidLength(s string) bool {
-	if len(s) == 0 {
-		return false
-	}
-	return true
 }
 
 func ValidAscii(s string) bool {
@@ -31,7 +24,7 @@ func ValidAscii(s string) bool {
 
 func internalServerError(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusInternalServerError)
-	t, _ := template.ParseFiles("internalerror.html")
+	t, _ := template.ParseFiles("error/internalerror.html")
 	err := t.Execute(w, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -42,16 +35,16 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
 		switch r.Method {
 		case "GET":
-			t, _ := template.ParseFiles("index.html")
-			err := t.Execute(w, nil)
+			t, err := template.ParseFiles("index.html")
 			if err != nil {
-				log.Fatal(err)
+				internalServerError(w, r)
 			}
+			t.Execute(w, nil)
 		case "POST":
 			r.ParseForm()
 			if !ValidAscii(r.Form.Get("input")) {
 				w.WriteHeader(http.StatusBadRequest)
-				t, err := template.ParseFiles("badrequest.html")
+				t, err := template.ParseFiles("error/badrequest.html")
 				if err != nil {
 					internalServerError(w, r)
 				}
@@ -59,7 +52,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			} else {
 				output, status := ascii.AsciiOutput(r.Form["input"][0], r.Form["font"][0])
 				log.Printf("method: %v / font: %v / input: %v / statuscode: %v\n", r.Method, r.Form["font"][0], r.Form["input"][0], status)
-				if status > 200 {
+				if status == 500 {
 					internalServerError(w, r)
 				} else {
 					ex := ExecOutput{
@@ -71,24 +64,18 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 						internalServerError(w, r)
 						return
 					}
-					err = t.Execute(w, ex)
-					if err != nil {
-						log.Fatal(err)
-					}
+					t.Execute(w, ex)
 				}
 			}
 		}
 	} else {
 		w.WriteHeader(http.StatusNotFound)
-		t, err := template.ParseFiles("notfound.html")
+		t, err := template.ParseFiles("error/notfound.html")
 		if err != nil {
 			internalServerError(w, r)
 			return
 		}
-		err = t.Execute(w, nil)
-		if err != nil {
-			log.Fatal(err)
-		}
+		t.Execute(w, nil)
 	}
 }
 
