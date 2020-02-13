@@ -11,18 +11,87 @@
     100%{background-position:96% 0%}
 } */
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* GRID */
+
 .main {
     width: 1024px;
     margin: 0 auto;
     font-family: 'Dosis', sans-serif;
 }
 
+.header {
+    grid-area: header;
+}
+
+.form-input {
+    grid-area: form;
+}
+
+.form-output {;
+    grid-area: output;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 200px 312px 312px 200px;
+    grid-template-rows: 200px 300px 200px 50px;
+    grid-template-areas: 
+        "header header header header"
+        ". form form ."
+        ". output output ."
+        "footer footer footer footer";
+        background: rgb(99, 99, 99);
+}
+
+.font-select {
+    grid-area: font;
+    font-size: 16px;
+    box-shadow: 0 13px 10px 0 rgba(0,0,0);
+    width: 200px;
+    height: 50px;
+    font-weight: 700;
+    place-self: center;
+    transition: ease .5s;
+}
+.font-select:hover {
+    box-shadow: 0 1px 10px 0 rgba(0,0,0, .5);
+    transition: ease .5s;
+}
+.cat-btn {
+    grid-area: cat;
+    place-self: center;
+    width: 110px;
+}
+.input {
+    grid-area: input;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 100px 212px 212px 100px;
+    grid-template-rows: 100px 200px;
+    grid-template-areas: 
+        ". font cat ."
+        "input input input input";
+}
+
+
+
 /* HEADER */
 
-/* img {
+img {
     display: block;
     margin: 0 auto;
-} */
+}
 
 /* MAIN */
 
@@ -55,9 +124,9 @@ textarea {
     grid-column: 2 / 4;
 } */
 
-/* h1 {
+h1 {
     visibility: hidden;
-} */
+}
 
 .output {
     overflow: auto;

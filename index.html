@@ -11,28 +11,30 @@
 </head>
 <body>
     <main class="main">
-        <header>
+        <header class="header">
             <img src="/assets/images/logo.png" alt="ascii-art-web logo" width="200">
             <h1>ascii art web</h1>
         </header>
 
-        <article class="form-output">
+        <article class="form-input">
             <form class="form" action="/" method="post">
-                <select name="font">
+                <select class="font-select" name="font">
                     <option value="standard">standard</option>
                     <option value="shadow">shadow</option>
                     <option value="thinkertoy">thinkertoy</option>
                 </select>
-                <input class="cat-image" type="image" src="/assets/images/cat.png" alt="cat" width="50">
-                <textarea name="input" cols="40" rows="5" placeholder="type something" required>{{.In}}</textarea>
+                <input class="cat-btn" type="image" src="/assets/images/cat.png" alt="cat" width="50">
+                <textarea class="input" name="input" cols="40" rows="5" placeholder="type something" required>{{.In}}</textarea>
             </form>
+        </article>
 
+        <article class="form-output">
             <section class="out">
                 <pre class="output">{{.Out}}</pre>
             </section>
         </article>
 
-        <footer>
+        <footer class="footer">
             <p>&copy; 
                 <a href="https://github.com/iNaz07" target="blank"> iNaz07</a>
                 <a href="https://github.com/Abdubek" target="blank">Abdubek</a>
